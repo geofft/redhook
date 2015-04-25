@@ -8,3 +8,6 @@ readme = "README.md"
 keywords = ["LD_PRELOAD", "interposition"]
 license = "BSD-2-Clause"
 examples = []
+
+[dependencies]
+libc = "0.1"
