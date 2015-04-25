@@ -1,0 +1,5 @@
+[package]
+name = "redhook"
+version = "0.0.1"
+authors = ["Geoffrey Thomas <geofft@ldpreload.com>"]
+examples = []

@@ -1,0 +1,11 @@
+[package]
+name = "redhook_ex_fakeroot"
+version = "0.0.1"
+authors = ["Geoffrey Thomas <geofft@ldpreload.com>"]
+
+[lib]
+name = "fakeroot"
+crate_type = ["dylib"]
+
+[dependencies.redhook]
+path = "../.."
