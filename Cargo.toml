@@ -1,6 +1,6 @@
 [package]
 name = "redhook"
-version = "0.0.1"
+version = "0.0.2"
 authors = ["Geoffrey Thomas <geofft@ldpreload.com>"]
 description = "Dynamic function call interposition / hooking (LD_PRELOAD) for Rust"
 repository = "https://github.com/geofft/redhook"
