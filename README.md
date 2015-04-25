@@ -62,3 +62,5 @@ neighborhood in Brooklyn, New York. Portions of the implementation
 borrow heavily from concepts in @Kimundi's
 [`lazy_static!`](https://github.com/Kimundi/lazy-static.rs) macro.
 
+redhook is free software, available under the terms of the
+[2-clause BSD license](COPYING).

@@ -2,4 +2,9 @@
 name = "redhook"
 version = "0.0.1"
 authors = ["Geoffrey Thomas <geofft@ldpreload.com>"]
+description = "Dynamic function call interposition / hooking (LD_PRELOAD) for Rust"
+repository = "https://github.com/geofft/redhook"
+readme = "README.md"
+keywords = ["LD_PRELOAD", "interposition"]
+license = "BSD-2-Clause"
 examples = []
