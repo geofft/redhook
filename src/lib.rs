@@ -5,6 +5,9 @@ use std::sync::atomic;
 #[cfg(target_env="gnu")]
 pub mod ld_preload;
 
+#[cfg(any(target_os = "macos", target_os = "ios"))]
+pub mod dyld_insert_libraries;
+
 /* Some Rust library functionality (e.g., jemalloc) initializes
  * lazily, after the hooking library has inserted itself into the call
  * path. If the initialization uses any hooked functions, this will lead
