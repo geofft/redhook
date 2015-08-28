@@ -44,7 +44,7 @@ macro_rules! hook {
             }
 
             #[no_mangle]
-            pub unsafe fn $real_fn ( $($v : $t),* ) -> $r {
+            pub unsafe extern fn $real_fn ( $($v : $t),* ) -> $r {
                 if $crate::initialized() {
                     $hook_fn ( $($v),* )
                 } else {
