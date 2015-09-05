@@ -16,7 +16,7 @@ want to hook, and the name you want to give to your hook function:
 
 ```rust
 hook! {
-    fn existing_function(x: i32) -> i32 => my_function {
+    unsafe fn existing_function(x: i32) -> i32 => my_function {
         42
     }
 }
