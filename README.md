@@ -54,8 +54,10 @@ geofft@cactuar:~/src/rust/redhook/examples/fakeroot$ LD_PRELOAD=target/debug/lib
 uid=0(root) gid=1001(geofft) euid=1001(geofft) groups=1001(geofft),27(sudo),111(sbuild)
 ```
 
-At the moment, redhook only supports `LD_PRELOAD` on glibc, but support
-for other platforms is planned.
+redhook currently supports building interposition libraries for
+`LD_PRELOAD` on glibc (GNU/Linux) and `DYLD_INSERT_LIBRARIES` on Apple's
+libc (Mac OS X) from the same source code. If you're interested in
+support for other platforms, please file an issue or pull request.
 
 redhook is named after the [Red Hook](http://en.wikipedia.org/wiki/Red_Hook,_Brooklyn)
 neighborhood in Brooklyn, New York. Portions of the implementation
@@ -64,3 +66,8 @@ borrow heavily from concepts in @Kimundi's
 
 redhook is free software, available under the terms of the
 [2-clause BSD license](COPYING).
+
+**Please note that no attempt is made to catch panics.** Once
+the code changes for [RFC 1236](https://github.com/rust-lang/rfcs/blob/master/text/1236-stabilize-catch-panic.md)
+land and are stable, I'll release a version that depends on them.
+Until then, **your code must ensure that it never panics**.
