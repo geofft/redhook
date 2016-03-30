@@ -11,4 +11,4 @@ crate_type = ["dylib"]
 path = "../.."
 
 [dependencies]
-libc = "0.1"
+libc = "0.2"
