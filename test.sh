@@ -14,5 +14,6 @@ preload () {
 set -ex
 
 cd examples/readlinkspy
+cargo update
 cargo build
 preload libreadlinkspy ls -l /dev/stdin | grep readlink
