@@ -9,3 +9,6 @@ crate_type = ["dylib"]
 
 [dependencies.redhook]
 path = "../.."
+
+[dependencies]
+libc = "0.1"
