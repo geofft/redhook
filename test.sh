@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 preload () {
     local library
@@ -12,6 +12,7 @@ preload () {
 }
 
 set -ex
+set -o pipefail
 
 cd examples/readlinkspy
 cargo update

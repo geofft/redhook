@@ -1,0 +1,4 @@
+language: rust
+
+script:
+ - ./test.sh
