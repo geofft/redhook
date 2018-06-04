@@ -1,7 +1,7 @@
 /* Rust doesn't directly expose __attribute__((constructor)), but this
  * is how dyld implements it. */
-#[link_section="__DATA,__mod_init_func"]
-pub static INITIALIZE_CTOR: extern fn() = ::initialize;
+#[link_section = "__DATA,__mod_init_func"]
+pub static INITIALIZE_CTOR: extern "C" fn() = ::initialize;
 
 #[macro_export]
 macro_rules! hook {
@@ -42,5 +42,7 @@ macro_rules! hook {
 
 #[macro_export]
 macro_rules! real {
-    ($real_fn:ident) => {$real_fn}
+    ($real_fn:ident) => {
+        $real_fn
+    };
 }

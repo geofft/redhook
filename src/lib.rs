@@ -2,7 +2,7 @@ extern crate libc;
 
 use std::sync::atomic;
 
-#[cfg(target_env="gnu")]
+#[cfg(target_env = "gnu")]
 pub mod ld_preload;
 
 #[cfg(any(target_os = "macos", target_os = "ios"))]
@@ -21,7 +21,7 @@ pub fn initialized() -> bool {
     INIT_STATE.load(atomic::Ordering::SeqCst)
 }
 
-extern fn initialize() {
+extern "C" fn initialize() {
     Box::new(0u8);
     INIT_STATE.store(true, atomic::Ordering::SeqCst);
 }

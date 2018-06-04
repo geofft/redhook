@@ -1,8 +1,8 @@
 use libc::{c_char, c_void};
 
-#[link(name="dl")]
-extern {
-        fn dlsym(handle: *const c_void, symbol: *const c_char) -> *const c_void;
+#[link(name = "dl")]
+extern "C" {
+    fn dlsym(handle: *const c_void, symbol: *const c_char) -> *const c_void;
 }
 
 const RTLD_NEXT: *const c_void = -1isize as *const c_void;
@@ -17,8 +17,8 @@ pub unsafe fn dlsym_next(symbol: &'static str) -> *const u8 {
 
 /* Rust doesn't directly expose __attribute__((constructor)), but this
  * is how GNU implements it. */
-#[link_section=".init_array"]
-pub static INITIALIZE_CTOR: extern fn() = ::initialize;
+#[link_section = ".init_array"]
+pub static INITIALIZE_CTOR: extern "C" fn() = ::initialize;
 
 #[macro_export]
 macro_rules! hook {
@@ -65,5 +65,7 @@ macro_rules! hook {
 
 #[macro_export]
 macro_rules! real {
-    ($real_fn:ident) => {$real_fn.get()}
+    ($real_fn:ident) => {
+        $real_fn.get()
+    };
 }
