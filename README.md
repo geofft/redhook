@@ -67,9 +67,4 @@ borrow heavily from concepts in @Kimundi's
 redhook is free software, available under the terms of the
 [2-clause BSD license](COPYING).
 
-**Please note that no attempt is made to catch panics.** Once
-the code changes for [RFC 1236](https://github.com/rust-lang/rfcs/blob/master/text/1236-stabilize-catch-panic.md)
-land and are stable, I'll release a version that depends on them.
-Until then, **your code must ensure that it never panics**.
-
 [![Build Status](https://travis-ci.org/geofft/redhook.svg?branch=master)](https://travis-ci.org/geofft/redhook)

@@ -28,10 +28,10 @@ macro_rules! hook {
 
         pub unsafe extern fn $hook_fn ( $($v : $t),* ) -> $r {
             if $crate::initialized() {
-                $body
+                ::std::panic::catch_unwind(|| $body ).ok()
             } else {
-                $real_fn ( $($v),* )
-            }
+                None
+            }.unwrap_or_else(|| $real_fn ( $($v),* ))
         }
     };
 
