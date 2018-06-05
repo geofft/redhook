@@ -43,14 +43,14 @@ There are a few [examples](examples) included, as separate crates:
 geofft@cactuar:~/src/rust/redhook/examples/readlinkspy$ cargo build
    Compiling redhook v0.0.1 (file:///home/geofft/src/rust/redhook/examples/readlinkspy)
    Compiling redhook_ex_readlinkspy v0.0.1 (file:///home/geofft/src/rust/redhook/examples/readlinkspy)
-geofft@cactuar:~/src/rust/redhook/examples/readlinkspy$ LD_PRELOAD=target/debug/libreadlinkspy-7cb7c673fbb62878.so ls -l /bin/sh
+geofft@cactuar:~/src/rust/redhook/examples/readlinkspy$ LD_PRELOAD=target/debug/libreadlinkspy.so ls -l /bin/sh
 readlink("/bin/sh")
 lrwxrwxrwx 1 root root 4 Feb 19  2014 /bin/sh -> dash
 ```
 
 ```
 geofft@cactuar:~/src/rust/redhook/examples/fakeroot$ cargo build
-geofft@cactuar:~/src/rust/redhook/examples/fakeroot$ LD_PRELOAD=target/debug/libfakeroot-1be6565b67838e2e.so id
+geofft@cactuar:~/src/rust/redhook/examples/fakeroot$ LD_PRELOAD=target/debug/libfakeroot.so id
 uid=0(root) gid=1001(geofft) euid=1001(geofft) groups=1001(geofft),27(sudo),111(sbuild)
 ```
 
