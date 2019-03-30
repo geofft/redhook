@@ -36,7 +36,7 @@ macro_rules! hook {
     };
 
     (unsafe fn $real_fn:ident ( $($v:ident : $t:ty),* ) => $hook_fn:ident $body:block) => {
-        hook! { unsafe fn $real_fn ( $($v : $t),* ) -> () => $hook_fn $body }
+        $crate::hook! { unsafe fn $real_fn ( $($v : $t),* ) -> () => $hook_fn $body }
     };
 }
 
