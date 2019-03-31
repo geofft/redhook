@@ -1,0 +1,12 @@
+[package]
+name = "redhook_ex_neverfree"
+version = "0.1.0"
+authors = ["Geoffrey Thomas <geofft@ldpreload.com>"]
+edition = "2018"
+
+[lib]
+name = "neverfree"
+crate_type = ["dylib"]
+
+[dependencies.redhook]
+path = "../.."

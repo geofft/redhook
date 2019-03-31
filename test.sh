@@ -18,3 +18,7 @@ cd examples/readlinkspy
 cargo update
 cargo build
 preload libreadlinkspy ls -l /dev/stdin | grep readlink
+
+cd ../neverfree
+cargo update
+cargo build
