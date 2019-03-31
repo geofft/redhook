@@ -4,38 +4,36 @@ redhook
 redhook is a helper crate for writing interposition libraries
 (`LD_PRELOAD`, `DYLD_INSERT_LIBRARIES`, etc.) in Rust.
 
-To use redhook, add the lines
+To use redhook, edit your `Cargo.toml` to add redhook as a dependency
+and configure your library to build as a `dylib`:
 
-```rust
-#[macro_use]
-extern crate redhook;
+```toml
+[dependencies]
+redhook = "1.0"
+
+[lib]
+name = "mylib"
+crate_type = ["dylib"]
 ```
 
-to your library, then use the `hook!` macro to declare the function you
-want to hook, and the name you want to give to your hook function:
+Then use the `hook!` macro to declare the function you want to hook, and
+the name you want to give to your hook function:
 
 ```rust
-hook! {
+redhook::hook! {
     unsafe fn existing_function(x: i32) -> i32 => my_function {
         42
     }
 }
 ```
 
-To access the underlying function, use `real!(existing_function)`.
+To access the underlying function, use `redhook::real!(existing_function)`.
 
-Compile your library as a `dylib`, which can be done via
-`rustc --crate-type=dylib`, or by adding
+Build your library as usual, find the resulting `.so` file (or `.dylib`,
+for macOS) inside the `target` directory, and set the `LD_PRELOAD` (or
+`DYLD_INSERT_LIBRARIES`) environment variable to that.
 
-```
-[lib]
-name = "mylib"
-crate_type = ["dylib"]
-```
-
-to your `Cargo.toml`. Then find the resulting `.so` file (`./mylib.so`
-for rustc, or inside `target` for Cargo) and set the `LD_PRELOAD`
-environment variable to that.
+(You can also use redhook without Cargo, with `rustc --crate-type=dylib`.)
 
 There are a few [examples](examples) included, as separate crates:
 
@@ -56,7 +54,7 @@ uid=0(root) gid=1001(geofft) euid=1001(geofft) groups=1001(geofft),27(sudo),111(
 
 redhook currently supports building interposition libraries for
 `LD_PRELOAD` on glibc (GNU/Linux) and `DYLD_INSERT_LIBRARIES` on Apple's
-libc (Mac OS X) from the same source code. If you're interested in
+libc (macOS) from the same source code. If you're interested in
 support for other platforms, please file an issue or pull request.
 
 redhook is named after the [Red Hook](http://en.wikipedia.org/wiki/Red_Hook,_Brooklyn)
