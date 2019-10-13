@@ -23,13 +23,9 @@ pub static INITIALIZE_CTOR: extern "C" fn() = ::initialize;
 #[macro_export]
 macro_rules! hook {
     (unsafe fn $real_fn:ident ( $($v:ident : $t:ty),* ) -> $r:ty => $hook_fn:ident $body:block) => {
-        #[allow(non_camel_case_types)]
-        pub struct $real_fn {__private_field: ()}
-        #[allow(non_upper_case_globals)]
-        static $real_fn: $real_fn = $real_fn {__private_field: ()};
-
-        impl $real_fn {
-            fn get(&self) -> unsafe extern fn ( $($v : $t),* ) -> $r {
+        mod $real_fn {
+            use super::*; //required for parameter types
+            pub fn get_dlsym_next() -> unsafe extern fn ( $($v : $t),* ) -> $r {
                 use ::std::sync::{Once, ONCE_INIT};
 
                 static mut REAL: *const u8 = 0 as *const u8;
@@ -46,10 +42,10 @@ macro_rules! hook {
             #[no_mangle]
             pub unsafe extern fn $real_fn ( $($v : $t),* ) -> $r {
                 if $crate::initialized() {
-                    ::std::panic::catch_unwind(|| $hook_fn ( $($v),* )).ok()
+                    ::std::panic::catch_unwind(|| super::$hook_fn ( $($v),* )).ok()
                 } else {
                     None
-                }.unwrap_or_else(|| $real_fn.get() ( $($v),* ))
+                }.unwrap_or_else(|| get_dlsym_next() ( $($v),* ))
             }
         }
 
@@ -66,6 +62,6 @@ macro_rules! hook {
 #[macro_export]
 macro_rules! real {
     ($real_fn:ident) => {
-        $real_fn.get()
+        $real_fn::get_dlsym_next()
     };
 }
