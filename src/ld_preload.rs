@@ -15,11 +15,6 @@ pub unsafe fn dlsym_next(symbol: &'static str) -> *const u8 {
     ptr as *const u8
 }
 
-/* Rust doesn't directly expose __attribute__((constructor)), but this
- * is how GNU implements it. */
-#[link_section = ".init_array"]
-pub static INITIALIZE_CTOR: extern "C" fn() = ::initialize;
-
 #[macro_export]
 macro_rules! hook {
     (unsafe fn $real_fn:ident ( $($v:ident : $t:ty),* ) -> $r:ty => $hook_fn:ident $body:block) => {
@@ -45,11 +40,7 @@ macro_rules! hook {
 
             #[no_mangle]
             pub unsafe extern fn $real_fn ( $($v : $t),* ) -> $r {
-                if $crate::initialized() {
-                    ::std::panic::catch_unwind(|| $hook_fn ( $($v),* )).ok()
-                } else {
-                    None
-                }.unwrap_or_else(|| $real_fn.get() ( $($v),* ))
+                ::std::panic::catch_unwind(|| $hook_fn ( $($v),* )).unwrap_or_else(|_| $real_fn.get() ( $($v),* ))
             }
         }
 

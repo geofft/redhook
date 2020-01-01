@@ -1,8 +1,3 @@
-/* Rust doesn't directly expose __attribute__((constructor)), but this
- * is how dyld implements it. */
-#[link_section = "__DATA,__mod_init_func"]
-pub static INITIALIZE_CTOR: extern "C" fn() = ::initialize;
-
 #[macro_export]
 macro_rules! hook {
     (unsafe fn $real_fn:ident ( $($v:ident : $t:ty),* ) -> $r:ty => $hook_fn:ident $body:block) => {
@@ -27,11 +22,7 @@ macro_rules! hook {
         }
 
         pub unsafe extern fn $hook_fn ( $($v : $t),* ) -> $r {
-            if $crate::initialized() {
-                ::std::panic::catch_unwind(|| $body ).ok()
-            } else {
-                None
-            }.unwrap_or_else(|| $real_fn ( $($v),* ))
+            ::std::panic::catch_unwind(|| $body ).unwrap_or_else(|_| $real_fn ( $($v),* ))
         }
     };
 
