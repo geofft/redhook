@@ -30,10 +30,10 @@ macro_rules! hook {
 
         impl $real_fn {
             fn get(&self) -> unsafe extern fn ( $($v : $t),* ) -> $r {
-                use ::std::sync::{Once, ONCE_INIT};
+                use ::std::sync::Once;
 
                 static mut REAL: *const u8 = 0 as *const u8;
-                static mut ONCE: Once = ONCE_INIT;
+                static mut ONCE: Once = Once::new();
 
                 unsafe {
                     ONCE.call_once(|| {
