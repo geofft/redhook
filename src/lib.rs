@@ -15,7 +15,7 @@ pub mod dyld_insert_libraries;
  * code in a static constructor, and bypassing all hooks until it has
  * completed. */
 
-static INIT_STATE: atomic::AtomicBool = atomic::ATOMIC_BOOL_INIT;
+static INIT_STATE: atomic::AtomicBool = atomic::AtomicBool::new(false);
 
 pub fn initialized() -> bool {
     INIT_STATE.load(atomic::Ordering::SeqCst)
