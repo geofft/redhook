@@ -9,7 +9,7 @@ and configure your library to build as a `dylib`:
 
 ```toml
 [dependencies]
-redhook = "1.0"
+redhook = "2.0"
 
 [lib]
 name = "mylib"
@@ -64,5 +64,7 @@ borrow heavily from concepts in @Kimundi's
 
 redhook is free software, available under the terms of the
 [2-clause BSD license](COPYING).
+
+Minimum supported Rust version: **1.32**
 
 [![Build Status](https://travis-ci.org/geofft/redhook.svg?branch=master)](https://travis-ci.org/geofft/redhook)
