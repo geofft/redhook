@@ -1,5 +1,12 @@
 #!/bin/bash
 
+if [ "$(uname)" = "Darwin" ]; then
+    tmpdir="$(mktemp -d)"
+    cp /bin/ls "$tmpdir"
+    PATH=$tmpdir:$PATH
+    trap 'rm -r "$tmpdir"' exit
+fi
+
 preload () {
     local library
     library=$1
