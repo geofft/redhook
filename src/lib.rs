@@ -1,6 +1,6 @@
 extern crate libc;
 
-#[cfg(target_env = "gnu")]
+#[cfg(any(target_env = "gnu", target_os = "android"))]
 pub mod ld_preload;
 
 #[cfg(any(target_os = "macos", target_os = "ios"))]
